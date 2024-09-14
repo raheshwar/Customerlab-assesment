@@ -4,7 +4,13 @@ import { Drawer } from "antd";
 import { GoDotFill } from "react-icons/go";
 import { TiMinus } from "react-icons/ti";
 import apiService from '../Components/service'
+import { message }
+from
+"antd"
+;
 const LabForm = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+
   const [open, setOpen] = useState(false);
   const [segmentName, setSegmentName] = useState('');
   const [selectedSchema, setselectedSchema] = useState([]);
@@ -28,7 +34,11 @@ const LabForm = () => {
   const handleSchemaChange1 = (event, index, schema) => {
 
     if (selectedSchema.includes(event.target.value)) {
-      alert('Schema already added')
+      // alert('Schema already added')
+      messageApi.open({
+        type: 'error',
+        content: 'Schema already added',
+      });
       let data =  []
       data = selectedSchema
       data[index] = schema
@@ -45,7 +55,10 @@ const LabForm = () => {
 };
 const add = () => {
   if (selectedSchema.includes(selected)) {
-    alert('Schema already added')
+    messageApi.open({
+      type: 'error',
+      content: 'Schema already added',
+    });    
   } else {
     let data1 = []
     data1 = selectedSchema
@@ -72,11 +85,17 @@ const removeSchema=(index)=>{
 const savesegment =async ()=>{
 
   if(!segmentName){
-    return alert('Please enter segment name')}
+    return messageApi.open({
+      type: 'error',
+      content: 'Please enter segment name',
+    });
+  }
     else if(!selectedSchema){
-     return alert('Please Add atlease one schema')}
-
-    
+     return messageApi.open({
+      type: 'error',
+      content: 'Please Add atlease one schema',
+    });
+  }
     else{
    let payloadSchma = []
    options.forEach(element => {
@@ -94,17 +113,25 @@ const savesegment =async ()=>{
   const res = await apiService.saveSegment(payload);
   if (res.status === 200) {
     setOpen(false)
-    alert('Segment saved successfully')
+    // alert('Segment saved successfully')
+    messageApi.open({
+      type: 'success',
+      content: 'Segment saved successfully',
+    });
+    
   }
   }
 }
 return (
+  
   <div className=" ">
+          {contextHolder}
+
     <div className="bg-cyan-500 py-3 px-6 flex items-center gap-4 text-white">
       <i>
         <RiArrowLeftSLine className="font-medium h-10 w-6 mr-2 " />
       </i>
-      <p className="text-base font-medium">View Audience</p>
+      <p className="text-base font-medium">Customer Lab</p>
     </div>
     <div className="border-2 text-gray-500 font-medium hover:bg-gray-300 hover:text-white border-gray-300 ml-28 text-center w-32 py-2 mt-10 ">
       <button type="primary" onClick={showDrawer}>
