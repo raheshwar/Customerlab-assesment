@@ -16,7 +16,7 @@ async saveSegment(postData) {
           console.log('Response:', data);
         })
         .catch(error => {
-          console.error('Error:', error);
+          return  false
         });
 }}
 const apiService = new ApiService();
