@@ -91,7 +91,11 @@ const savesegment =async ()=>{
       }
     
   
-  const otpResponse = await apiService.saveSegment(payload);
+  const res = await apiService.saveSegment(payload);
+  if (res.status === 200) {
+    setOpen(false)
+    alert('Segment saved successfully')
+  }
   }
 }
 return (
