@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:where(.css-dev-only-do-not-override-qnu6hi).ant-drawer .ant-drawer-header {
+  padding: 0;
+}
